@@ -1,0 +1,25 @@
+from encodings import normalize_encoding
+
+pacientes = [] #lista para armazenar os dados dos pacientes
+
+def cadastrar_paciente():        #criou função para cadastrar
+    print('Cadastrar Paciente')
+    nome = input('Nome do Paciente: ').strip()        #pegou nome e retirou espaços desnecessários
+
+while True:  #criou um looping
+    try:     #exiba isso:
+        idade = int(input('Idade: '))       #pegou idade em inteiro
+        break  #encerra o looping
+    except ValueError:        #se valor errado a primera exiba isso
+        print('Idade não aceita')
+
+telefone = input('Telefone: ').strip()     #pegou numero sem espaço desnecessário
+
+paciente = {                   #esse dicionario será criado para cada paciente
+    'nome': nome,
+    'idade': idade,
+    'telefone' : telefone
+}
+
+pacientes.append(paciente)       #adiciona o dicionario na lista
+print('Paciente Cadastrado!')
