@@ -1,5 +1,3 @@
-from encodings import normalize_encoding
-
 pacientes = [] #lista para armazenar os dados dos pacientes
 
 def cadastrar_paciente():        #criou função para cadastrar
@@ -23,3 +21,21 @@ paciente = {                   #esse dicionario será criado para cada paciente
 
 pacientes.append(paciente)       #adiciona o dicionario na lista
 print('Paciente Cadastrado!')
+
+def ver_estatisticas():        #cria nova função de estatisticas
+    print('Estatísticas')
+    if len(pacientes) == 0:             #checar quantos itens tem dentro da lista
+        print("Nenhum paciente cadastrado.")
+        return       #se não tiver paciente, ele encerra aqui
+
+total = len(pacientes)    #le quantos valores tem dentro da lista
+some_idades = sum(p['idade'] for p in pacientes)   #soma de todas ['idade'] dentro da lista
+media_idade = soma_idades / total     #tira média das idades dos pacientes
+
+mais_novo = min(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a menor
+mais_velho = max(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a maior
+
+print(f'Total de pacientes: {total}')
+print(f'Idade média: {media_idade:.1f} anos.')
+print(f'Paciente mais novo: {mais_novo['nome']} que tem {mais_novo['idade']} anos')
+print(f'Paciente mais velho: {mais_velho['nome']} que tem {mais_velho['idade']} anos')
