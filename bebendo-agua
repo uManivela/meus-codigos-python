@@ -1,0 +1,29 @@
+def beber_agua():
+  garrafa = 750
+
+  while True:
+    resposta = input('Quer beber água? (s/n)')
+    if resposta == "n":
+      print('Ok, valeu!')
+      break
+    else:
+      resposta2 = float(input('Quanto você quer beber: '))
+      garrafa2 = garrafa - resposta2
+      if garrafa2 <= 0:
+        print('Você zerou a garrafa!')
+        resposta3 = input('Quer continuar bebendo? (s/n)')
+        if resposta3 == 'n':
+          print('Ok,valeu!')
+          break
+        else:
+          garrafa += 750
+          beber_agua()
+      else:
+        print(f'Ainda faltam: {garrafa2}mLs.')
+        resposta4 = input('Quer continuar bebendo? (s/n)')
+        if resposta4 == 'n':
+          print('Ok,valeu!')
+        else:
+          beber_agua()
+
+beber_agua()
