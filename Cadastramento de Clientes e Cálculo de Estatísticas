@@ -4,23 +4,23 @@ def cadastrar_paciente():        #criou função para cadastrar
     print('Cadastrar Paciente')
     nome = input('Nome do Paciente: ').strip()        #pegou nome e retirou espaços desnecessários
 
-while True:  #criou um looping
-    try:     #exiba isso:
-        idade = int(input('Idade: '))       #pegou idade em inteiro
-        break  #encerra o looping
-    except ValueError:        #se valor errado a primera exiba isso
-        print('Idade não aceita')
+    while True:  #criou um looping
+        try:     #exiba isso:
+            idade = int(input('Idade: '))       #pegou idade em inteiro
+            break  #encerra o looping
+        except ValueError:        #se valor errado a primera exiba isso
+            print('Idade não aceita')
 
-telefone = input('Telefone: ').strip()     #pegou numero sem espaço desnecessário
+    telefone = input('Telefone: ').strip()     #pegou numero sem espaço desnecessário
 
-paciente = {                   #esse dicionario será criado para cada paciente
-    'nome': nome,
-    'idade': idade,
-    'telefone' : telefone
-}
+    paciente = {                   #esse dicionario será criado para cada paciente
+        'nome': nome,
+        'idade': idade,
+        'telefone' : telefone
+    }
 
-pacientes.append(paciente)       #adiciona o dicionario na lista
-print('Paciente Cadastrado!')
+    pacientes.append(paciente)       #adiciona o dicionario na lista
+    print('Paciente Cadastrado!')
 
 def ver_estatisticas():        #cria nova função de estatisticas
     print('Estatísticas')
@@ -28,14 +28,69 @@ def ver_estatisticas():        #cria nova função de estatisticas
         print("Nenhum paciente cadastrado.")
         return       #se não tiver paciente, ele encerra aqui
 
-total = len(pacientes)    #le quantos valores tem dentro da lista
-some_idades = sum(p['idade'] for p in pacientes)   #soma de todas ['idade'] dentro da lista
-media_idade = soma_idades / total     #tira média das idades dos pacientes
+    total = len(pacientes)    #le quantos valores tem dentro da lista
+    soma_idades = sum(p['idade'] for p in pacientes)   #soma de todas ['idade'] dentro da lista
+    media_idade = soma_idades / total     #tira média das idades dos pacientes
 
-mais_novo = min(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a menor
-mais_velho = max(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a maior
+    mais_novo = min(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a menor
+    mais_velho = max(pacientes, key=lambda p: p['idade'])   #considera apenas as p['idade'] e ache a maior
 
-print(f'Total de pacientes: {total}')
-print(f'Idade média: {media_idade:.1f} anos.')
-print(f'Paciente mais novo: {mais_novo['nome']} que tem {mais_novo['idade']} anos')
-print(f'Paciente mais velho: {mais_velho['nome']} que tem {mais_velho['idade']} anos')
+    print(f'Total de pacientes: {total}')
+    print(f'Idade média: {media_idade:.1f} anos.')
+    print(f'Paciente mais novo: {mais_novo['nome']} que tem {mais_novo['idade']} anos')
+    print(f'Paciente mais velho: {mais_velho['nome']} que tem {mais_velho['idade']} anos')
+
+def buscar_paciente():                 #cria função de buscar pacientes
+    print('Buscar Paciente')
+    if len(pacientes) == 0:
+        print("Nenhum paciente cadastrado.")
+        return  # encerra a função se não houver pacientes
+
+    nome_busca = input('Digite o nome do paciente: ').strip().lower()  #transforma nome do paciente em letras minusculas
+
+    encontrados = [p for p in pacientes if p['nome'].lower() == nome_busca]  #verifica se o nome existe nos dicionarios da lista
+
+    if len(encontrados) == 0:
+        print("Paciente não encontrado.")
+    else:
+        paciente = encontrados[0]
+        print("Paciente encontrado:")
+        print(f"Nome: {paciente['nome']}")
+        print(f"Idade: {paciente['idade']}")
+        print(f"Telefone: {paciente['telefone']}")
+
+def listar_paciente():         #cria função para listar os pacientes
+    print('Lista de Pacientes')
+    if len(pacientes) == 0:
+        print("Nenhum paciente cadastrado.")
+        return
+
+    for i, p in enumerate(pacientes, start=1):        #enumerar cada paciente que aparecer em pacientes
+        print(f"{i}. {p['nome']} - Idade: {p['idade']} - Tel: {p['telefone']}")
+
+
+        #menu principal
+while True:
+        print('SISTEMA CLÍNICA VIDA+')
+        print("1. Cadastrar paciente")
+        print("2. Ver estatísticas")
+        print("3. Buscar paciente")
+        print("4. Listar todos os pacientes")
+        print("5. Sair")
+
+        #chamar as funções de acordo com as escolha do usuário
+        opcao = input('Escolha uma opção: ').strip()
+
+        if opcao == "1":
+            cadastrar_paciente()
+        elif opcao == "2":
+            ver_estatisticas()
+        elif opcao == "3":
+            buscar_paciente()
+        elif opcao == "4":
+            listar_paciente()
+        elif opcao == "5":
+            print("Encerrando o sistema.")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
